@@ -22,11 +22,13 @@ def fetch():
 #        aqis = tree.xpath('//*[@id="citydivmain"]/div/div/div/table[2]/tbody/tr/td[1]/div')
 #        print("{} aqi: {}".format(city, aqis))
     url = "http://aqicn.org/city/beijing/m/"
-    page = urllib.request.urlopen(url)
-    soup = BeautifulSoup(page.read(), "lxml")
+    page = urllib.urlopen(url)
+    soup = BeautifulSoup(page.read())
 #    print(soup.get_text().encode('utf-8'))
-    div = soup.find("div", {"id":"articlebody"})
-    print(div.get_text())
+    div = soup.find(id="header").table
+    print(div)
+    return "con"
+    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
