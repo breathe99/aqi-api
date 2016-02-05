@@ -29,19 +29,19 @@ def fetch():
     data["time"] = str(datetime.now())
     response = jsonify(data)
 
-def one_hour():
-    if(last_fetch == None): return true # initial fetch
+def need_fetch():
+    if(last_fetch == None): return True # initial fetch
+    print(str(last_fetch))
     return (datetime.now() - last_fetch).total_seconds() > 216000 # > 1 hour
 
 def get_data():
-    if(last_fetch == None or one_hour()):
+    if(need_fetch()):
         fetch()
 
     return response
 
 @app.route("/aqi")
 def aqi():
-    print(str(last_fetch))
     return get_data()
 
 if __name__ == "__main__":
