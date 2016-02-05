@@ -16,32 +16,32 @@ sess = dryscrape.Session(base_url = site)
 sess.set_attribute('auto_load_images', False)
 
 def fetch():
+    print("fetching...")
+    global last_fetch, data, response
     last_fetch = datetime.now()
     
     for city in data.keys():
         sess.visit(city + '/m')
         ele = sess.at_xpath('//*[@id="xatzcaqv"]')
         data[city] = ele.text()
-        print(city + ": " + ele.text())
-
-    response = jsonify(**data)
-    print(response)
+        print(city + ": " + data[city])
+    
+    data["time"] = str(datetime.now())
+    response = jsonify(data)
 
 def one_hour():
-    return (datetime.now() - last_fetch).hours > 0
+    if(last_fetch == None): return true # initial fetch
+    return (datetime.now() - last_fetch).total_seconds() > 216000 # > 1 hour
 
 def get_data():
-    if(last_fetch == None or one_hour):
+    if(last_fetch == None or one_hour()):
         fetch()
 
     return response
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
 @app.route("/aqi")
 def aqi():
+    print(str(last_fetch))
     return get_data()
 
 if __name__ == "__main__":
