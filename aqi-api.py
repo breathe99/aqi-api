@@ -32,7 +32,7 @@ def fetch():
 def need_fetch():
     if(last_fetch == None): return True # initial fetch
     print(str(last_fetch))
-    return (datetime.now() - last_fetch).total_seconds() > 216000 # > 1 hour
+    return (datetime.now() - last_fetch).total_seconds() > 3600 # > 1 hour
 
 def get_data():
     if(need_fetch()):
