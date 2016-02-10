@@ -3,7 +3,7 @@ from flask import jsonify
 from datetime import datetime
 import dryscrape
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 site = "http://aqicn.org/city/"
 data = {"beijing":-1, "shanghai":-1, "hongkong":-1, "bangkok":-1, "delhi":-1,
@@ -40,9 +40,9 @@ def get_data():
 
     return response
 
-@app.route("/aqi")
+@application.route("/aqi")
 def aqi():
     return get_data()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True)
+    application.run(host='0.0.0.0', port=80, debug=True)

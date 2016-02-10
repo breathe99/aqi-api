@@ -1,2 +1,5 @@
 *.swp
 aqi-apienv/
+__pycache__/
+aqienv/
+wsgi.py
